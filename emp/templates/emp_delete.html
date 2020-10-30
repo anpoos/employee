@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="POST">
+		{% csrf_token%}
+		<p> Aru u sure to delete "{{object}}"?</p>
+		<input type="submit" name="" value="confrim">
+		
+	</form>
+
+</body>
+</html>

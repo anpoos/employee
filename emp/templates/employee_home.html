@@ -1,0 +1,64 @@
+
+
+{% extends "index.html" %}
+
+{% block content_block %} 
+          <div class="card">
+            <div class="card-header">
+        <a href="/employee/employee_create/" class="btn btn-success float-right">Create Employee</a> 
+        
+
+				<a href="/registration/" class="btn btn-success float-right">Sign In</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="employee" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Emp Name</th>
+                  <th>Position</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+				 {% for emp in emps %}
+			      <tr>
+			        <td><a href="/employee/employee_detail/{{emp.id}}">{{emp}}</a></td>
+			        <td>{{emp.position}}</td>
+			        <td><a href="/employee/employee_edit/{{emp.id}}">Edit</a></td>
+			        <td><a href="/employee/employee_delete/{{emp.id}}">Delete</a></td>
+			      </tr>
+			      {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Emp Name</th>
+                  <th>Position</th>        
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+{% endblock %}
+
+{% block extraload %}
+<script src="/static/plugins/datatables/jquery.dataTables.js"></script>
+
+<script>
+  $(function () {
+    $("#employee").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+{% endblock %}
