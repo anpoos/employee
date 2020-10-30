@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Registration Page</title>
+  <title>Registration Page</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,21 +21,31 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
 
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg">Register a new membership</p>
+      <p class="login-box-msg">Register</p>
 
   <form method="post">
     {% csrf_token %}
-    {% for field in form %}
     <p>
-      {{field.label_tag}}</br>
-      {{field}}
-      {% endfor %}
-    </p>
+      {{form.name.label}}</br>
+      {{form.name}}
+    </p>    
+    <p>
+      {{form.email.label}}</br>
+      {{form.email}}
+    </p>    
+    <p>
+      {{form.phone_no.label}}</br>
+      {{form.phone_no}}
+    </p>    
+    <p>
+      {{form.password.label}}</br>
+      {{form.password}}
+    </p>    
+
     <button type="submit">Sign up</button>
   </form>
 

@@ -131,3 +131,8 @@ STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+
+AUTH_USER_MODEL = 'registration.Registration'
+AUTHENTICATION_BACKENDS=['registration.backends.EmailPhoneBackend']
+LOGIN_URL = '/'

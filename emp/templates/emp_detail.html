@@ -1,24 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<table border="1">
-		<tr>
-			<th>Name</th>
-			<th>age</th>
-			<th>Postion</th>
-			<th>email</th>
-			<th>salary</th>
-			<th>address</th>
-		</tr>
-		<tr>
-			<td>{{emp.name}}</td>
-			<td>{{emp.age}}</td>
-			<td>{{emp.position}}</td>
-		</tr>
-	</table>
 
-</body>
-</html>
+
+{% extends "index.html" %}
+
+{% block content_block %} 
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Employee Details</h3>
+
+                <div class="card-tools">
+ 				<a href="/">Go Back</a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-head-fixed">
+                    <tr>
+                       <th>Name</th>
+                       <td>{{emp.name}}</td>
+                    </tr>                    
+                    <tr>
+                       <th>Position</th>
+                       <td>{{emp.get_position_display}}</td>
+                    </tr>                    
+                    <tr>
+                       <th>DOB</th>
+                       <td>{{emp.dob}}</td>
+                    </tr>                     
+                    <tr>
+                       <th>Age</th>
+                       <td>{{emp.age}} Years</td>
+                    </tr>                    
+                    <tr>
+                       <th>Salary</th>
+                       <td>{{emp.salary}}</td>
+                    </tr>                    
+                    <tr>
+                       <th>email</th>
+                       <td>{{emp.email}}</td>
+                    </tr>                    
+                    <tr>
+			 			           <th>Address</th>
+                       <td>{{emp.address}}</td>
+                    </tr>
+
+
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+{% endblock %}
+
+

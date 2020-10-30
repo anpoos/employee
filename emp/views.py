@@ -1,4 +1,5 @@
 from django.views.generic import ListView,DetailView,CreateView,UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
 from emp.models import Employee
@@ -7,17 +8,14 @@ import datetime
 today_date = datetime.datetime.now().date()
 
 
-# Create your views here.
 class EmpList(ListView):
 	model = Employee
 	context_object_name = 'emps'
 	template_name = "employee_home"
+	queryset = Employee.objects.filter(is_deleted=0)
 
-	def get_queryset(self):
-		obj = Employee.objects.filter(is_deleted=0)
-		return obj
 
-class EmpEdit(UpdateView):
+class EmpEdit(LoginRequiredMixin,UpdateView):
 	model = Employee
 	extra_context = {'updated_date':'2000-10-10'}
 	form_class =EmpForm
@@ -30,25 +28,14 @@ class EmpEdit(UpdateView):
 		emp.save()
 		return HttpResponseRedirect('/')
 
-class EmpCreate(CreateView):
+class EmpCreate(LoginRequiredMixin,CreateView):
 	model = Employee
 	form_class =EmpForm
 	template_name = "emp_edit.html"
-	print('create>>>>>>>>>>>>>>>>>>>>>>>')
-	print(">>>>>>>>>>>>>>>>>>>>>>>>................")
 	success_url = "/employee"
 
-	# def post(self,request,**kwargs):
-	# 	form =EmpForm(request.POST)
-	# 	print(form,">>>>>>>>>>>pot")
-	# 	if form.is_valid():
-	# 		print('form',">>>>>>>>>>>true")
-	# 		customer = form.save(commit=False)
-	# 		customer.created_date = today_date
-	# 		customer.save()
-	# 	return HttpResponseRedirect('/employee')
 
-class EmpDelete(DeleteView):
+class EmpDelete(LoginRequiredMixin,DeleteView):
 	model = Employee
 	template_name = "emp_delete.html"
 	success_url = "/"

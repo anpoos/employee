@@ -1,35 +1,26 @@
 from django.shortcuts import render_to_response, render
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponseRedirect,HttpResponse
 from registration.models import Registration
 from registration.forms import RegForm
 
-# Create your views here.
-
-# class Login(TemplateView):
-# 	pass
 @csrf_exempt
 def Login(request):
 	if request.method == 'POST':
-		print('>>>>>>>>>>>>>>>>>>>>>')
-		print(request,">>>>>>>>>>>>>>>>>>>>>>.........")
 		username = request.POST.get('email')
 		password = request.POST.get('password')
-		user = Registration.objects.get(email = username,)
-		print(user.password,"?????????")
-		print(user.password)
-		print(make_password(password))
-		if user: 
-			request.session['logged_user'] = user.name
+		user = authenticate(request, username=username, password=password)
+		if user is not None:
+			login(request, user) 
 			return HttpResponseRedirect('/')
 		else:
 			return render_to_response('login.html')
 	return render_to_response('login.html')
-			
+	
 
 class SignUp(CreateView):
 	model = Registration
@@ -46,3 +37,7 @@ class SignUp(CreateView):
 		else:
 			form = RegForm()
 			return HttpResponseRedirect('/registration/signup')
+
+def logout_view(request):
+    logout(request) 
+    return HttpResponseRedirect('/')

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import DateInput
+from django.forms.widgets import DateInput, Textarea
 from emp.models import Employee
 
 class EmpForm(forms.ModelForm):
@@ -9,4 +9,5 @@ class EmpForm(forms.ModelForm):
 		exclude = ['is_active','is_deleted','created_date','updated_date']
 		widgets = {
             'dob': DateInput(attrs={'type': 'date'}),
+			'address': Textarea(attrs={"rows":5, "cols":20}),
         }
